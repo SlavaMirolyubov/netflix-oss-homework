@@ -6,9 +6,4 @@ spring:
       uri: http://127.0.0.1:8888
       failFast: true
 
-  eureka:
-    instance:
-      leaseRenewalIntervalInSeconds: 1
-      leaseExpirationDurationInSeconds: 2
-
 server.port: 8989

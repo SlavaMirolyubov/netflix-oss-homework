@@ -6,8 +6,4 @@ endpoints:
   health:
     sensitive: true
 
-zuul:
-  routes:
-    workspaces-api: /workspaces/**
-    employees-api: /employees/**
 

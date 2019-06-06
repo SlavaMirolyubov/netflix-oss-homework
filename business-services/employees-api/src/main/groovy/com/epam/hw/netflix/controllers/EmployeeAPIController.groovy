@@ -15,7 +15,6 @@ import static java.util.UUID.randomUUID
 
 @RestController
 @RequestMapping("/employees")
-@EnableHystrix
 class EmployeeAPIController {
 
     @Autowired
@@ -25,7 +24,6 @@ class EmployeeAPIController {
     WorkspaceAPI workspaceAPIClient
 
     @RequestMapping("/{id}")
-    @HystrixCommand(fallbackMethod = 'getDefault')
     def describeEmployee(@PathVariable("id") String id) {
         def employee = employeeService.findEmployee(id)
 
@@ -38,14 +36,4 @@ class EmployeeAPIController {
         ]
     }
 
-    def getDefault(String id) {
-        def employee = employeeService.findEmployee(id)
-        [
-                id       : employee.id,
-                firstName: employee.firstName,
-                lastName : employee.lastName,
-                email    : employee.email,
-                workspace: new Workspace("0000001", 1, 1, randomUUID().toString(), WINDOWS) // null? Nope. Let's request exact workspace by employee.workspaceId from workspaces-api. How? With feign client maybe?
-        ]
-    }
 }
